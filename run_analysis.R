@@ -51,7 +51,7 @@ colnames(cleanData)[1] <- "subject"
 #Merge activity labels with the data set
 activity_labels <- read.table("data/activity_labels.txt")
 colnames(activity_labels) <- c("type", "activity")
-cleanData <- merge(activity_labels, cleanData, y.by = "activity_type", x.by = "type")
+cleanData <- merge(activity_labels, cleanData, y.by = "activity_type", x.by = "type", all = FALSE)
 
 # Remove type and activity_type from the merge since the activity labels are described 
 # activity column.
@@ -66,5 +66,5 @@ names(cleanData) <- cols
 #Question 5
 meanMeasure <- ddply(cleanData, c("subject","activity"), numcolwise(mean))
 meanMeasureLong <-gather(meanMeasure, subject, activity)
-colnames(meanMeasureLong) = c("subject", "activity", "signal", "mean")
+colnames(meanMeasureLong) <- c("subject", "activity", "signal", "mean")
 write.table(meanMeasureLong, "clean_data.txt", row.names = FALSE)
